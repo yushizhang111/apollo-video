@@ -6,7 +6,6 @@ export default class VideoList extends React.Component {
     
     render() {
         const { videoData } = this.props;
-        console.log(videoData);
         return (
             <List
                 grid={{

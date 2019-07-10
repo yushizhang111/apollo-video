@@ -1,38 +1,27 @@
 import React from "react";
 import { video } from '../api';
 import { user } from '../api';
-import { Card } from 'antd';
+import { Card, Layout } from 'antd';
 import VideoList from '../component/Video/VideoList'
 export default class Home extends React.Component {
-    state = {
-        recommendedVideo: [],
-        watchedVideo: [],
-        subscribedVideo: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            recommendedVideo: [],
+            watchedVideos: [],
+            subscribedVideo: [],
+            
+        };
+       
     }
+    
     componentDidMount() {
-        const uploader = user;
-        video.getVideoList()
-            .then((data) => {
-                let videoData = [];
-                data.forEach(
-                    async(item) => {
-                        let userId = item.userId;
-                        const userName = await uploader.getUserName(userId)
-                        let video = {
-                            uploader: userName,
-                            title: item.title,
-                            uploadTime: item.uploadedAt,
-                            url: item.url,
-                        }
-                        item = video;
-                        videoData.push(item);
-                        this.setState({ recommendedVideo: videoData})
-                        return item;
-                    }
-                )
-                return data;
-            });
+        video.getVideosList().then(
+            response => this.setState({recommendedVideo:response})
+        )
+
         
+       
         
     }
 
@@ -40,12 +29,23 @@ export default class Home extends React.Component {
     
 
     render() {
-        const { recommendedVideo } = this.state;
-        console.log(recommendedVideo);
+        const { recommendedVideo, watchedVideos } = this.state;
+        const { watchedVideo, subscription } = this.props;
+        
+        
+        
+      
+        
         return (
-            <Card title="Recommended">
-                 <VideoList videoData={recommendedVideo} />
-            </Card>
+            <div>
+                
+                <Card title="Recommended">
+                    <VideoList videoData={recommendedVideo} />
+                </Card>
+                <Card title="History">
+                    <VideoList videoData={watchedVideo} />
+                </Card>
+            </div>
         )
        
         
