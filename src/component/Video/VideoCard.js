@@ -13,6 +13,7 @@ export default class VideoCard extends React.Component {
                 <div>
                     <h4>{video.title}</h4>
                     <h5>{video.uploader}</h5>
+                    <p>{video.uploadTime}</p>
                 </div>
             </Card>
         )
