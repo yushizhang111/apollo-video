@@ -12,6 +12,7 @@ export function fetchJSON(url, params, target) {
 	return fetch(url, data);
 }
 export function getData(url) {
+	console.log("s");
 	return fetch(url, {
 		headers: new Headers({
 			'Content-Type': 'application/json'
@@ -25,6 +26,22 @@ export function getData(url) {
 			return response.json();
 		});
 }
+
+// export function getUploader(url) {
+// 	return fetch(url, {
+// 		headers: new Headers({
+// 			'Content-Type': 'application/json'
+// 		}),
+// 		method: 'GET'
+// 	})
+// 		.then(response => {
+// 			if(response.status !== 200) {
+// 				console.log('Error:'+ response.status);
+// 			}
+// 			fetch()
+// 			return response.json();
+// 		});
+// }
 export const postData = (url, data) => {
 	return fetch(url, {
 		headers: new Headers({
