@@ -1,28 +1,27 @@
-import React from 'react';
-import BasicLayout from './component/Layout/BasicLayout';
-import Home from './pages/Home';
-import 'antd/dist/antd.css';
-import { profile } from './api';
-import default_avatar from './image/default-avatar.png';
+import React from "react";
+import BasicLayout from "./component/Layout/BasicLayout";
+import Home from "./pages/Home";
+import "antd/dist/antd.css";
+import { profile } from "./api";
+import default_avatar from "./image/default-avatar.png";
 
 const avatar = default_avatar;
-export default class App extends React.Component{
+export default class App extends React.Component {
 	state = {
-		user: '',
-		watchedVideo: [],
-		subscription: []
-	}
+		user: "",
+		watchedVideo: []
+	};
 	componentDidMount() {
-		profile.getWatchedVideos().then(
-			response => this.setState({
-				watchedVideo:response
+		profile.getWatchedVideos().then(response =>
+			this.setState({
+				watchedVideo: response
 			})
-		)
-		profile.getProfile().then(
-			response => this.setState({
-				user:response
+		);
+		profile.getProfile().then(response =>
+			this.setState({
+				user: response
 			})
-		)
+		);
 	}
 
 	render() {
@@ -30,11 +29,11 @@ export default class App extends React.Component{
 		console.log(watchedVideo);
 		console.log(subscription);
 		return (
-			<BasicLayout pageContent={<Home watchedVideo={watchedVideo} subscription={subscription} /> } currentUser={this.state.user} id= "components-layout-demo-custom-trigger"/>
-			
+			<BasicLayout
+				pageContent={<Home watchedVideo={watchedVideo} />}
+				currentUser={this.state.user}
+				id="components-layout-demo-custom-trigger"
+			/>
 		);
-
 	}
 }
-
-
