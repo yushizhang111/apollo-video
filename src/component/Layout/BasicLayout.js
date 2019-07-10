@@ -1,11 +1,13 @@
 import React from "react";
 import { Layout, Menu, Icon, Avatar } from "antd";
 import '../../style/main.scss';
+
 const { Header, Sider } = Layout;
 
 export default class BasicLayout extends React.Component {
 	state = {
-		collapsed: false
+		collapsed: true,
+		
 	};
 
 	toggle = () => {
@@ -15,7 +17,8 @@ export default class BasicLayout extends React.Component {
 	};
 
 	render() {
-		const { pageContent } = this.props;
+		const { pageContent, currentUser } = this.props;
+	
 		return (
 			<Layout>
 				<Sider
@@ -25,7 +28,7 @@ export default class BasicLayout extends React.Component {
 				>
 					<div className="logo" />
 					<Menu
-						theme="dark"
+						theme="light"
 						mode="inline"
 						defaultSelectedKeys={["1"]}
 					>
@@ -57,6 +60,7 @@ export default class BasicLayout extends React.Component {
 						<Avatar>
 
 						</Avatar>
+						<span>{currentUser.name}</span>
 					</Header>
 					{pageContent}
 				</Layout>
