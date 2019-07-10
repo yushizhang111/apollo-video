@@ -1,5 +1,7 @@
 import React from "react";
 import { Layout, Menu, Icon, Avatar } from "antd";
+import { Link } from 'react-router-dom'
+
 import '../../style/main.scss';
 
 const { Header, Sider } = Layout;
@@ -33,12 +35,16 @@ export default class BasicLayout extends React.Component {
 						defaultSelectedKeys={["1"]}
 					>
 						<Menu.Item key="1">
-							<Icon type="user" />
-							<span>nav 1</span>
+							<Link to='/'>
+								<Icon type="home" />
+								<span>Home</span>
+							</Link>
 						</Menu.Item>
 						<Menu.Item key="2">
-							<Icon type="video-camera" />
-							<span>nav 2</span>
+							<Link to='/history'>
+								<Icon type="history" />
+								<span>History</span>
+							</Link>
 						</Menu.Item>
 						<Menu.Item key="3">
 							<Icon type="upload" />

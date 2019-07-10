@@ -1,8 +1,9 @@
 import React from "react";
 import { video } from "../api";
-import { user } from "../api";
-import { Card, Layout } from "antd";
+import { profile } from "../api";
+import { Card } from "antd";
 import VideoList from "../component/Video/VideoList";
+
 export default class Home extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,11 +18,16 @@ export default class Home extends React.Component {
 		video
 			.getVideosList()
 			.then(response => this.setState({ recommendedVideo: response }));
+
+		profile.getWatchedVideos().then(response =>
+			this.setState({
+				watchedVideos: response
+			})
+		);
 	}
 
 	render() {
 		const { recommendedVideo, watchedVideos } = this.state;
-		const { watchedVideo, subscription } = this.props;
 
 		return (
 			<div>
@@ -29,7 +35,7 @@ export default class Home extends React.Component {
 					<VideoList videoData={recommendedVideo} />
 				</Card>
 				<Card title="History">
-					<VideoList videoData={watchedVideo} />
+					<VideoList videoData={watchedVideos} />
 				</Card>
 			</div>
 		);
