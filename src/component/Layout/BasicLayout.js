@@ -1,16 +1,30 @@
 import React from "react";
-import { Layout, Menu, Icon, Avatar, Divider } from "antd";
+import { Layout, Menu, Icon, Avatar, Divider, Input } from "antd";
 import { Link } from "react-router-dom";
+import { createBrowserHistory } from 'history';
 import { profile } from "../../api";
+import SearchPage from '../../pages/SearchPage';
 const { Header, Sider, Content } = Layout;
 
+
 const { SubMenu } = Menu;
+const { Search } = Input;
+const history = createBrowserHistory();
 export default class BasicLayout extends React.Component {
-	state = {
-		collapsed: true,
-		subscriptions: []
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			collapsed: true,
+			subscriptions: [],
+			searchContent:'',
+		};
+		this.onSearch=this.onSearchVideo.bind(this)
+	}
+	
 	componentDidMount() {
+		this.setState({
+			searchContent: ''
+		})
 		profile.getSubscribedUser().then(response => {
 			this.setState({
 				subscriptions: response
@@ -23,10 +37,19 @@ export default class BasicLayout extends React.Component {
 		});
 	};
 
+	onSearchVideo(value) {
+		history.push({
+			pathname: '/video',
+			search: '?title='+value,
+			
+		})
+		window.location.href = '/video?title='+value;
+	}
+
 	render() {
 		const { pageContent, currentUser } = this.props;
-		const { subscriptions } = this.state;
-		console.log(subscriptions)
+		const { subscriptions, searchContent } = this.state;
+		
 		return (
 			<Layout>
 				<Sider
@@ -34,11 +57,12 @@ export default class BasicLayout extends React.Component {
 					collapsible
 					collapsed={this.state.collapsed}
 				>
-					<div className="logo" />
+					<div className="logo" >
+						
+					</div>
 					<Menu
 						theme="light"
 						mode="inline"
-						defaultSelectedKeys={["1"]}
 					>
 						<Menu.Item key="1">
 							<Link to="/">
@@ -105,16 +129,29 @@ export default class BasicLayout extends React.Component {
 							}
 							onClick={this.toggle}
 						/>
-						{currentUser.avatar ? (
-							<div style={{ marginRight: 20 }}>
-								<Avatar src={currentUser.avatar} />
+						<Link to={"/profile"} >
+							<div style={{
+								display: "inline-flex"
+							}}>
+								{currentUser.avatar ? (
+									<div style={{ marginRight: 20 }}>
+										<Avatar src={currentUser.avatar} />
+									</div>
+								) : (
+									<div style={{ marginRight: 20 }}>
+										<Avatar icon="user" />
+									</div>
+								)}
+								<div>{currentUser.name}</div>
 							</div>
-						) : (
-							<div style={{ marginRight: 20 }}>
-								<Avatar icon="user" />
-							</div>
-						)}
-						<div>{currentUser.name}</div>
+						</Link>
+						<Search
+							placeholder="Enter the title. exp: Whales"
+							enterButton="Search"
+							size="default"
+							onSearch={value => this.onSearchVideo(value)}
+							style={{ width: "50%",margin:"auto"}}
+						/>
 					</Header>
 					<Content style={{ minHeight: "1080px" }}>
 						{pageContent}

@@ -1,12 +1,10 @@
 import React from "react";
 import { profile } from "../api";
-import { video } from "../api";
-import { Card, Avatar, Collapse, Spin, Button, Descriptions } from "antd";
+import { Card, Avatar, Spin, Button, Descriptions } from "antd";
 import VideoList from "../component/Video/VideoList";
 import SubscriptionList from "../component/Subscription/SubscriptionList";
 import moment from "moment";
 
-const {Panel} = Collapse
 export default class VideoDetail extends React.Component {
     state = {
         

@@ -6,8 +6,23 @@ const url = `${Base_URL}videos`;
 
 export const getVideos = () => ajax.getData(url);
 export const getVideo = id => ajax.getData(url + "/" + id);
+export const getVideosByTitle = (title) =>ajax.getData(url + "?title="+title);
 export const getCommentsOfVideo = id =>
     ajax.getData(url + "/" + id + "/comments");
+
+
+export async function getVideoListByTitle (title){
+    const videos = await getVideosByTitle(title);
+    console.log(videos)
+	let videosList = [];
+	for (let i = 0; i < videos.length; i++) {
+		let item = videos[i];
+		let id = item.id;
+		item = await getVideoDetails(id);
+		videosList.push(item);
+	}
+	return videosList;
+}
 
 export async function getVideoDetails(id) {
 	const video = await getVideo(id);
