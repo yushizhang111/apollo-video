@@ -7,12 +7,11 @@ export default class History extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			watchedVideos: [],
+			watchedVideos: []
 		};
 	}
 
 	componentDidMount() {
-
 		profile.getWatchedVideos().then(response =>
 			this.setState({
 				watchedVideos: response

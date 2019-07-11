@@ -1,15 +1,12 @@
 import React from "react";
 import { Layout, Menu, Icon, Avatar } from "antd";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-import '../../style/main.scss';
-
-const { Header, Sider } = Layout;
+const { Header, Sider, Content } = Layout;
 
 export default class BasicLayout extends React.Component {
 	state = {
-		collapsed: true,
-		
+		collapsed: true
 	};
 
 	toggle = () => {
@@ -20,7 +17,7 @@ export default class BasicLayout extends React.Component {
 
 	render() {
 		const { pageContent, currentUser } = this.props;
-	
+
 		return (
 			<Layout>
 				<Sider
@@ -35,13 +32,13 @@ export default class BasicLayout extends React.Component {
 						defaultSelectedKeys={["1"]}
 					>
 						<Menu.Item key="1">
-							<Link to='/'>
+							<Link to="/">
 								<Icon type="home" />
 								<span>Home</span>
 							</Link>
 						</Menu.Item>
 						<Menu.Item key="2">
-							<Link to='/history'>
+							<Link to="/history">
 								<Icon type="history" />
 								<span>History</span>
 							</Link>
@@ -53,7 +50,7 @@ export default class BasicLayout extends React.Component {
 					</Menu>
 				</Sider>
 				<Layout>
-					<Header style={{ background: "#fff", padding: 0 }}>
+					<Header style={{ background: "#fff", padding: 0 ,display:"inline-flex"}}>
 						<Icon
 							className="trigger"
 							type={
@@ -63,12 +60,20 @@ export default class BasicLayout extends React.Component {
 							}
 							onClick={this.toggle}
 						/>
-						<Avatar>
-
-						</Avatar>
-						<span>{currentUser.name}</span>
+						{currentUser.avatar ? (
+							<div style={{ marginRight: 20}}>
+								<Avatar src={currentUser.avatar} />
+							</div>
+						) : (
+							<div style={{ marginRight: 20}}>
+								<Avatar icon="user" />
+							</div>
+						)}
+						<div>{currentUser.name}</div>
 					</Header>
-					{pageContent}
+					<Content style={{ minHeight: "1080px" }}>
+						{pageContent}
+					</Content>
 				</Layout>
 			</Layout>
 		);

@@ -1,7 +1,7 @@
 import React from "react";
 import { video } from "../api";
 import { profile } from "../api";
-import { Card } from "antd";
+import { Card, Spin } from "antd";
 import VideoList from "../component/Video/VideoList";
 
 export default class Home extends React.Component {
@@ -10,34 +10,49 @@ export default class Home extends React.Component {
 		this.state = {
 			recommendedVideo: [],
 			watchedVideos: [],
-			subscribedVideo: []
+            subscribedVideo: [],
+            isLoading: true,
 		};
 	}
 
 	componentDidMount() {
 		video
 			.getVideosList()
-			.then(response => this.setState({ recommendedVideo: response }));
+            .then(response => this.setState({
+                recommendedVideo: response,
+                isLoading: false
+            }));
 
 		profile.getWatchedVideos().then(response =>
 			this.setState({
-				watchedVideos: response
+                watchedVideos: response
+                
 			})
-		);
+        );
+        
+
+        
 	}
 
 	render() {
-		const { recommendedVideo, watchedVideos } = this.state;
-
-		return (
-			<div>
-				<Card title="Recommended">
-					<VideoList videoData={recommendedVideo} />
-				</Card>
-				<Card title="History">
-					<VideoList videoData={watchedVideos} />
-				</Card>
-			</div>
-		);
+		const { recommendedVideo, watchedVideos, isLoading } = this.state;
+        if (isLoading) {
+            return (
+                <div className="spin">
+                    <Spin />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Card bordered={false} title="Recommended" className="content-card">
+                        <VideoList videoData={recommendedVideo} />
+                    </Card>
+                    <Card bordered={false} title="History" className="content-card">
+                        <VideoList videoData={watchedVideos} />
+                    </Card>
+                </div>
+            );
+        }
 	}
 }
