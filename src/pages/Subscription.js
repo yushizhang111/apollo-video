@@ -1,5 +1,5 @@
 import React from "react";
-import { user } from "../api";
+import { user, profile } from "../api";
 import { Card, Spin, Button, Avatar,Icon } from "antd";
 import VideoList from "../component/Video/VideoList";
 
@@ -9,8 +9,11 @@ export default class Subscription extends React.Component {
 		this.state = {
 			uploader:'',
             subscribedVideo: [],
+            filled: true,
+            subscribed:true,
             isLoading: true,
-		};
+        };
+        this.toggleSubscribed=this.toggleSubscribed.bind(this)
 	}
 
     componentDidMount() {
@@ -27,17 +30,27 @@ export default class Subscription extends React.Component {
             })
             
         );
-        
+    }
+    
+    toggleSubscribed(event,id) {
+        profile.toggleSubscribe(id).then(
+            response =>console.log(response)
+        )
+        this.setState(prevState => ({
+            filled: !prevState.filled,
+        }));
+        this.setState(prevState => ({
+            subscribed: !prevState.subscribed,
+        }));
+    }
 
-        
-	}
 
 	render() {
         const { uploader, subscribedVideo, isLoading } = this.state;
         const SubscribeButton = () => {
             return (
                 <div className='video-Info__subscribe' >
-                    <Button type="primary" shape="round" size="large" ><Icon type="heart" theme="filled" />Subscribe</Button>
+                    <Button type="primary" shape="round" size="large" onClick={(event)=>this.toggleSubscribed(event, uploader.id)}><Icon type="heart" theme={this.state.filled?"filled":""} />{this.state.subscribed?"Subscribed":"Subscribe"}</Button>
                 </div>
             )
         }
