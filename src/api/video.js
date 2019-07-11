@@ -7,7 +7,7 @@ const url = `${Base_URL}videos`;
 export const getVideos = () => ajax.getData(url);
 export const getVideo = id => ajax.getData(url + "/" + id);
 export const getCommentsOfVideo = id =>
-	ajax.getData(url + "/" + id + "/comments");
+    ajax.getData(url + "/" + id + "/comments");
 
 export async function getVideoDetails(id) {
 	const video = await getVideo(id);

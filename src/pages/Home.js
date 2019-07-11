@@ -1,9 +1,8 @@
 import React from "react";
 import { video } from "../api";
 import { profile } from "../api";
-import { Card, Spin } from "antd";
+import { Card, Spin} from "antd";
 import VideoList from "../component/Video/VideoList";
-
 export default class Home extends React.Component {
 	constructor(props) {
 		super(props);
@@ -45,12 +44,15 @@ export default class Home extends React.Component {
         } else {
             return (
                 <div>
-                    <Card bordered={false} title="Recommended" className="content-card">
+                   
+                    
+                    <Card bordered={false} title="Recommended" className="content-card" >
                         <VideoList videoData={recommendedVideo} />
                     </Card>
                     <Card bordered={false} title="History" className="content-card">
                         <VideoList videoData={watchedVideos} />
                     </Card>
+                   
                 </div>
             );
         }
