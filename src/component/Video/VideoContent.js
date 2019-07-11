@@ -1,7 +1,48 @@
 import React from "react";
-import { Button, Avatar, Divider } from "antd";
+import { Button, Avatar, Divider, Icon } from "antd";
+import { profile } from "../../api";
 
 export default class VideoContent extends React.Component {
+    constructor(props) {
+		super(props);
+		this.state = {
+            filled: '',
+            subscribed:'',
+            isLoading: '',
+        };
+        this.toggleSubscribed=this.toggleSubscribed.bind(this)
+    }
+
+    componentDidMount() {
+        const { content } = this.props;
+        const { video } = content;
+        const userId = video.uploader.id;
+        profile.isSubscribed(userId).then(
+            response => { 
+                if (response.isSubscribed) {
+                    this.setState({
+                        filled: true
+                    })
+                    this.setState({
+                        subscribed: true
+                    })
+                }
+            }
+        )
+    }
+    
+    toggleSubscribed(event,id) {
+        profile.toggleSubscribe(id).then(
+            response =>console.log(response)
+        )
+        this.setState(prevState => ({
+            filled: !prevState.filled,
+        }));
+        this.setState(prevState => ({
+            subscribed: !prevState.subscribed,
+        }));
+    }
+    
     render() {
         const { content } = this.props;
         const { video } = content;
@@ -36,7 +77,7 @@ export default class VideoContent extends React.Component {
                             <p>Published {video.relateUploadTime}</p>
                         </div>
                         <div className='video-Info__subscribe' >
-                            <Button type="primary" shape="round" icon="heart" size="large" >Subscribe</Button>
+                        <Button type="primary" shape="round" size="large" onClick={(event)=>this.toggleSubscribed(event, video.uploader.id)}><Icon type="heart" theme={this.state.filled?"filled":""} />{this.state.subscribed?"Subscribed":"Subscribe"}</Button>
                         </div>
                     </div>
                     <Divider />

@@ -2,15 +2,20 @@ import React from "react";
 import { List , Avatar, Button, Icon} from "antd";
 
 export default class SideVideoList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.subscribedUserRef = React.createRef();
+        this.unSubscribe = this.unSubscribe.bind(this);
+    }
+
+    unSubscribe() {
+        this.subscribedUserRef.current.style["display"]="none"
+        
+    }
+
+
 	render() {
         const { subscriptions } = this.props;
-        const SubscribeButton = () => {
-            return (
-                <div className='video-Info__subscribe' >
-                    <Button type="primary" shape="circle" icon="heart" size="large" />
-                </div>
-            )
-        }
         const UserAvatar = (user) => {
             return (
                 user.avatar ? (
@@ -38,13 +43,13 @@ export default class SideVideoList extends React.Component {
 				dataSource={subscriptions}
 				renderItem={item => (
                     <List.Item>
-                        <div style={{ "textAlign":"center"}}>
+                        <div className="subscribed-user" style={{ "textAlign": "center" }} ref={this.subscribedUserRef} >
                             <div>
                                 <UserAvatar user={item} />
                             </div>
                             <h3>{item.name}</h3>
                             <div>
-                                <Button type="primary" shape="circle" size="default" ><Icon type="heart" theme="filled" /></Button>
+                                <Button type="primary" shape="circle" size="default" onClick={this.unSubscribe}><Icon type="heart" theme="filled" /></Button>
                             </div>
                             
                         </div>
