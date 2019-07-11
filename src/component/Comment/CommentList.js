@@ -9,6 +9,7 @@ export default class CommentList extends React.Component {
         super(props);
         this.state = {
             addComment: '',
+            pageSize: 5,
         }
         this.onChange = this.onChange.bind(this);
 
@@ -26,8 +27,20 @@ export default class CommentList extends React.Component {
 
     render() {
         const { content, user } = this.props;
+        const { pageSize } = this.state;
         console.log(content);
         console.log(user);
+        const paginationProps = {
+			showSizeChanger: true,
+			showQuickJumper: true,
+			pageSizeOptions:['5','10','15','20'],
+			pageSize,
+			onShowSizeChange: (current, pagesize) =>{
+				this.setState({
+					pageSize:pagesize,
+				})
+			}
+		};
         const Editor = ({ onSubmit, submitting }) => (
             <Comment
                 avatar={
@@ -70,6 +83,7 @@ export default class CommentList extends React.Component {
                 className="comment-list"
                 header={<Editor />}
                 itemLayout="horizontal"
+                pagination={paginationProps}
                 dataSource={content}
                 renderItem={item => (
                 <li>

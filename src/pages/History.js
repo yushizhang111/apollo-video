@@ -9,6 +9,7 @@ export default class History extends React.Component {
 		this.state = {
             watchedVideos: [],
             isLoading: true,
+            pageSize:2,
 		};
 	}
 
@@ -22,7 +23,18 @@ export default class History extends React.Component {
 	}
 
 	render() {
-		const { watchedVideos, isLoading } = this.state;
+        const { watchedVideos, isLoading, pageSize } = this.state;
+        const paginationProps = {
+			showSizeChanger: true,
+			showQuickJumper: true,
+			pageSizeOptions:['2','3','6','12', '24', '30'],
+			pageSize,
+			onShowSizeChange: (current, pagesize) =>{
+				this.setState({
+					pageSize:pagesize,
+				})
+			}
+		};
         if (isLoading) {
             return (
                 <div className="spin">
@@ -33,7 +45,7 @@ export default class History extends React.Component {
             return (
                 <div>
                     <Card title="History">
-                        <VideoList videoData={watchedVideos} />
+                        <VideoList videoData={watchedVideos} paginationProps={paginationProps}/>
                     </Card>
                 </div>
             );

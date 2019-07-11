@@ -100,7 +100,9 @@ export default class BasicLayout extends React.Component {
 													</div>
 												) : (
 													<div style={{ marginRight: 20 }}>
-														<Avatar icon="user" />
+															<Avatar >
+																<Icon type="user" />
+															</Avatar>
 													</div>
 												)}
 												{item.name}
@@ -146,7 +148,7 @@ export default class BasicLayout extends React.Component {
 							</div>
 						</Link>
 						<Search
-							placeholder="Enter the title. exp: Whales"
+							placeholder="Exp: Whales"
 							enterButton="Search"
 							size="default"
 							onSearch={value => this.onSearchVideo(value)}

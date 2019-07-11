@@ -11,8 +11,13 @@ export const getCommentsOfVideo = id =>
     ajax.getData(url + "/" + id + "/comments");
 
 
-export async function getVideoListByTitle (title){
-    const videos = await getVideosByTitle(title);
+export async function getVideoListByTitle(title) {
+    let videos;
+    if (title) {
+        videos = await getVideosByTitle(title);
+    } else {
+        videos = await getVideos();
+    }
     console.log(videos)
 	let videosList = [];
 	for (let i = 0; i < videos.length; i++) {

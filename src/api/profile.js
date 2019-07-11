@@ -27,9 +27,10 @@ export async function isSubscribed(id) {
 	let isSubscribed = false;
 	let index = "";
 	for (let i = 0; i < subscriptions.length; i++) {
-		let subscription = subscriptions[i];
-		let userId = subscription.userId;
-
+        let subscription = subscriptions[i];
+        let userId = subscription.userId;
+        console.log(id)
+        console.log(userId);
 		if (userId === parseInt(id)) {
 			index = i;
 			isSubscribed = true;
