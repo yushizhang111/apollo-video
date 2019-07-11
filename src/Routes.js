@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import History from "./pages/History";
 import Subscription from "./pages/Subscription";
 import VideoDetail from "./pages/VideoDetail";
+import Profile from "./pages/Profile";
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -17,6 +18,7 @@ const Routes = () => (
 			<Route path="/history" component={History} />
 			<Route path="/subscription/:id" component={Subscription} />
 			<Route path="/videos/:id" component={VideoDetail} />
+			<Route path="/profile" component={Profile} />
 		</Switch>
 	</main>
 );
