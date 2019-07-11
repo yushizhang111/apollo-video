@@ -1,8 +1,10 @@
 import React from "react";
-import { Card, Button, Avatar, Divider, Comment, Tooltip, List, Form, Input } from "antd";
+import { Card, Button, Avatar, Divider, Comment, Tooltip, List, Form, Input, Alert } from "antd";
 import { Link } from "react-router-dom";
+import { video } from "../../api"
 
 const { TextArea } = Input;
+
 export default class CommentList extends React.Component {
 
     constructor(props) {
@@ -12,7 +14,7 @@ export default class CommentList extends React.Component {
             pageSize: 5,
         }
         this.onChange = this.onChange.bind(this);
-
+        this.onSubmit=this.onSubmit.bind(this)
     }
 
     onChange = (e) => {
@@ -22,6 +24,20 @@ export default class CommentList extends React.Component {
         })
 
 
+
+    }
+    onSubmit = (e) => {
+        const body = this.state.addComment;
+        const { user, videoDetail } = this.props;
+        const userId = user.id;
+        const videoId = videoDetail.id
+        video.submitComment(videoId, userId, body).then(
+            response => {
+                console.log(response)
+                alert("Success Submit")
+            }
+        )
+        
 
     }
 
@@ -52,8 +68,8 @@ export default class CommentList extends React.Component {
                             <textarea style={{"width":"90%"}} rows={3} onChange={this.onChange} value={this.state.addComment} id="textArea" autoFocus/>
                         </Form.Item>
                         <Form.Item>
-                            <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-                            Add Comment
+                            <Button htmlType="submit" loading={submitting} onClick={this.onSubmit} type="primary">
+                                Add Comment
                             </Button>
                         </Form.Item>
                     </div>

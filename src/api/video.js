@@ -1,6 +1,7 @@
 import { ajax } from "../utils";
 import { Base_URL } from "../utils/variables";
 import { getUser } from "./user";
+import { submit } from "./comment";
 import moment from "moment";
 const url = `${Base_URL}videos`;
 
@@ -10,7 +11,17 @@ export const getVideosByTitle = (title) =>ajax.getData(url + "?title="+title);
 export const getCommentsOfVideo = id =>
     ajax.getData(url + "/" + id + "/comments");
 
-
+export async function submitComment(videoId, userId, body) {
+    const date = moment().format("YYYY-MM-DD HH:MM:SS")
+    const data = {
+        userId: userId,
+        videoId: videoId,
+        date: date,
+        body: body
+    }
+    const result = await submit(data);
+    return result
+}
 export async function getVideoListByTitle(title) {
     let videos;
     if (title) {

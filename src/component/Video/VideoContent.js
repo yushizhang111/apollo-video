@@ -33,14 +33,18 @@ export default class VideoContent extends React.Component {
     
     toggleSubscribed(event,id) {
         profile.toggleSubscribe(id).then(
-            response =>console.log(response)
+            response => {
+                console.log(response);
+                this.setState(prevState => ({
+                    filled: !prevState.filled,
+                }));
+                this.setState(prevState => ({
+                    subscribed: !prevState.subscribed,
+                }));
+                alert("Success Change Subscription")
+            }
         )
-        this.setState(prevState => ({
-            filled: !prevState.filled,
-        }));
-        this.setState(prevState => ({
-            subscribed: !prevState.subscribed,
-        }));
+        
     }
     
     render() {
