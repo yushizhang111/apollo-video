@@ -1,12 +1,10 @@
 import React from "react";
-import { Layout, Menu, Icon, Avatar, Divider, Input } from "antd";
+import { Layout, Menu, Icon, Avatar, Input } from "antd";
 import { Link } from "react-router-dom";
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory } from "history";
 import { profile } from "../../api";
-import SearchPage from '../../pages/SearchPage';
+
 const { Header, Sider, Content } = Layout;
-
-
 const { SubMenu } = Menu;
 const { Search } = Input;
 const history = createBrowserHistory();
@@ -16,21 +14,22 @@ export default class BasicLayout extends React.Component {
 		this.state = {
 			collapsed: true,
 			subscriptions: [],
-			searchContent:'',
+			searchContent: ""
 		};
-		this.onSearch=this.onSearchVideo.bind(this)
+		this.onSearch = this.onSearchVideo.bind(this);
 	}
-	
+
 	componentDidMount() {
 		this.setState({
-			searchContent: ''
-		})
+			searchContent: ""
+		});
 		profile.getSubscribedUser().then(response => {
 			this.setState({
 				subscriptions: response
 			});
 		});
 	}
+
 	toggle = () => {
 		this.setState({
 			collapsed: !this.state.collapsed
@@ -39,31 +38,27 @@ export default class BasicLayout extends React.Component {
 
 	onSearchVideo(value) {
 		history.push({
-			pathname: '/video',
-			search: '?title='+value,
-			
-		})
-		window.location.href = '/video?title='+value;
+			pathname: "/video",
+			search: "?title=" + value
+		});
+		window.location.href = "/video?title=" + value;
 	}
 
 	render() {
 		const { pageContent, currentUser } = this.props;
-		const { subscriptions, searchContent } = this.state;
-		
+		const { subscriptions } = this.state;
+
 		return (
 			<Layout>
 				<Sider
 					trigger={null}
 					collapsible
 					collapsed={this.state.collapsed}
+					style={{ paddingTop: "10px" }}
+					theme="light"
 				>
-					<div className="logo" >
-						
-					</div>
-					<Menu
-						theme="light"
-						mode="inline"
-					>
+					
+					<Menu theme="light" mode="inline">
 						<Menu.Item key="1">
 							<Link to="/">
 								<Icon type="home" />
@@ -87,22 +82,34 @@ export default class BasicLayout extends React.Component {
 								}
 							>
 								{subscriptions.map(item => (
-									<Menu.Item
-										key={item.id}
-									>
+									<Menu.Item key={item.id}>
 										<Link to={"/subscription/" + item.id}>
-											<div style={{"display":"inline-flex"}}>
+											<div
+												style={{
+													display: "inline-flex"
+												}}
+											>
 												{item.avatar ? (
-													<div style={{ marginRight: 20 }}>
+													<div
+														style={{
+															marginRight: 20
+														}}
+													>
 														<Avatar
-															src={currentUser.avatar}
+															src={
+																currentUser.avatar
+															}
 														/>
 													</div>
 												) : (
-													<div style={{ marginRight: 20 }}>
-															<Avatar >
-																<Icon type="user" />
-															</Avatar>
+													<div
+														style={{
+															marginRight: 20
+														}}
+													>
+														<Avatar>
+															<Icon type="user" />
+														</Avatar>
 													</div>
 												)}
 												{item.name}
@@ -131,10 +138,12 @@ export default class BasicLayout extends React.Component {
 							}
 							onClick={this.toggle}
 						/>
-						<Link to={"/profile"} >
-							<div style={{
-								display: "inline-flex"
-							}}>
+						<Link to={"/profile"}>
+							<div
+								style={{
+									display: "inline-flex"
+								}}
+							>
 								{currentUser.avatar ? (
 									<div style={{ marginRight: 20 }}>
 										<Avatar src={currentUser.avatar} />
@@ -152,7 +161,7 @@ export default class BasicLayout extends React.Component {
 							enterButton="Search"
 							size="default"
 							onSearch={value => this.onSearchVideo(value)}
-							style={{ width: "50%",margin:"auto"}}
+							style={{ width: "50%", margin: "auto" }}
 						/>
 					</Header>
 					<Content style={{ minHeight: "1080px" }}>

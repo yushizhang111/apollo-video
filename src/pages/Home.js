@@ -22,7 +22,6 @@ export default class Home extends React.Component {
 				isLoading: false
 			})
 		);
-
 		profile.getWatchedVideos(2).then(response =>
 			this.setState({
 				watchedVideos: response

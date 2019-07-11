@@ -75,8 +75,8 @@ export default class VideoDetail extends React.Component {
 						type="primary"
 						shape="circle"
 						icon="edit"
-                        size="large"
-                        onClick={this.showModal}
+						size="large"
+						onClick={this.showModal}
 					/>
 				</div>
 			);
@@ -144,8 +144,8 @@ export default class VideoDetail extends React.Component {
 					<Card
 						bordered={false}
 						title="History"
-                        className="content-card"
-                        extra={<Link to={"/history"}>More</Link>}
+						className="content-card"
+						extra={<Link to={"/history"}>More</Link>}
 					>
 						<VideoList videoData={watchedVideos} />
 					</Card>

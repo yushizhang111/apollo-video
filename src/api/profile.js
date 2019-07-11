@@ -27,10 +27,10 @@ export async function isSubscribed(id) {
 	let isSubscribed = false;
 	let index = "";
 	for (let i = 0; i < subscriptions.length; i++) {
-        let subscription = subscriptions[i];
-        let userId = subscription.userId;
-        console.log(id)
-        console.log(userId);
+		let subscription = subscriptions[i];
+		let userId = subscription.userId;
+		console.log(id);
+		console.log(userId);
 		if (userId === parseInt(id)) {
 			index = i;
 			isSubscribed = true;
@@ -46,10 +46,8 @@ export async function isSubscribed(id) {
 
 export async function toggleSubscribe(id) {
 	const currentUser = await getProfile();
-	const result= await isSubscribed(id);
-    console.log(result);
+	const result = await isSubscribed(id);
 	let newUser = "";
-
 	if (result.isSubscribed) {
 		delete currentUser.subscriptions[result.index];
 		newUser = await update(currentUser);
@@ -92,7 +90,6 @@ export async function getWatchedVideoDetails(id) {
 	let index = 0;
 	let videoDetail = await getVideoDetails(id);
 	let lastViewedTime = moment(Date.now()).format("DD/MM/YYYY HH:MM");
-
 	for (let i = 0; i < watchedVideos.length; i++) {
 		let video = watchedVideos[i];
 		let videoId = video.videoId;

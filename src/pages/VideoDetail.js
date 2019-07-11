@@ -21,7 +21,6 @@ export default class VideoDetail extends React.Component {
 		const path = window.location.pathname.split("/");
 		const length = path.length;
 		const videoId = path[length - 1];
-
 		profile.getWatchedVideoDetails(videoId).then(response => {
 			this.setState({
 				videoDetail: response
@@ -54,6 +53,8 @@ export default class VideoDetail extends React.Component {
 			isLoading
 		} = this.state;
 		console.log(recommended);
+		console.log(comments);
+		console.log(videoDetail);
 		if (isLoading) {
 			return (
 				<div className="spin">
@@ -73,12 +74,13 @@ export default class VideoDetail extends React.Component {
 									marginLeft: "20px",
 									marginRight: "20px"
 								}}
+								bordered={false}
 							>
 								<Panel header="Comments">
 									<CommentList
 										content={comments}
-                                        user={currentUser}
-                                        videoDetail={videoDetail.video}
+										user={currentUser}
+										videoDetail={videoDetail.video}
 									/>
 								</Panel>
 							</Collapse>

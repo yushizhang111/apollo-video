@@ -7,29 +7,29 @@ const url = `${Base_URL}videos`;
 
 export const getVideos = () => ajax.getData(url);
 export const getVideo = id => ajax.getData(url + "/" + id);
-export const getVideosByTitle = (title) =>ajax.getData(url + "?title="+title);
+export const getVideosByTitle = title => ajax.getData(url + "?title=" + title);
 export const getCommentsOfVideo = id =>
-    ajax.getData(url + "/" + id + "/comments");
+	ajax.getData(url + "/" + id + "/comments");
 
 export async function submitComment(videoId, userId, body) {
-    const date = moment().format("YYYY-MM-DD HH:MM:SS")
-    const data = {
-        userId: userId,
-        videoId: videoId,
-        date: date,
-        body: body
-    }
-    const result = await submit(data);
-    return result
+	const date = moment().format("YYYY-MM-DD HH:MM:SS");
+	const data = {
+		userId: userId,
+		videoId: videoId,
+		date: date,
+		body: body
+	};
+	const result = await submit(data);
+	return result;
 }
 export async function getVideoListByTitle(title) {
-    let videos;
-    if (title) {
-        videos = await getVideosByTitle(title);
-    } else {
-        videos = await getVideos();
-    }
-    console.log(videos)
+	let videos;
+	if (title) {
+		videos = await getVideosByTitle(title);
+	} else {
+		videos = await getVideos();
+	}
+	console.log(videos);
 	let videosList = [];
 	for (let i = 0; i < videos.length; i++) {
 		let item = videos[i];
@@ -45,13 +45,14 @@ export async function getVideoDetails(id) {
 	const userId = video.userId;
 	const user = await getUser(userId);
 	const uploadedTime = video.uploadedAt;
-
 	const videoInfo = {
 		id: video.id,
 		uploader: user,
 		title: video.title,
-        uploadTime: moment(uploadedTime).format("MMM Do YYYY HH:MM:SS a"),
-        relateUploadTime:moment(uploadedTime).startOf('day').fromNow(),
+		uploadTime: moment(uploadedTime).format("MMM Do YYYY HH:MM:SS a"),
+		relateUploadTime: moment(uploadedTime)
+			.startOf("day")
+			.fromNow(),
 		url: video.url,
 		description: video.description
 	};
@@ -72,19 +73,20 @@ export async function getVideosList(limited) {
 export async function getVideoComments(id) {
 	const comments = await getCommentsOfVideo(id);
 	let commentsList = [];
-	for (let i = 0; i < (comments.length); i++) {
+	for (let i = 0; i < comments.length; i++) {
 		let item = comments[i];
 		let userId = item.userId;
-        let user = await getUser(userId);
-        let relatedDate = moment(item.date).startOf('day').fromNow()
-        let date = moment(item.date).format("MMMM Do YYYY, h:mm:ss a'")
-        let commentDetail = {
-            user: user,
-            date: date,
-            relatedDate: relatedDate,
-            body:item.body,
-            
-        }
+		let user = await getUser(userId);
+		let relatedDate = moment(item.date)
+			.startOf("day")
+			.fromNow();
+		let date = moment(item.date).format("MMMM Do YYYY, h:mm:ss a'");
+		let commentDetail = {
+			user: user,
+			date: date,
+			relatedDate: relatedDate,
+			body: item.body
+		};
 		commentsList.push(commentDetail);
 	}
 	return commentsList;

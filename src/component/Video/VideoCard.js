@@ -1,24 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import moment from "moment";
 
 export default class VideoCard extends React.Component {
 	render() {
-        const { video } = this.props;
+		const { video } = this.props;
 		if (!video.percentage) {
 			return (
 				<div>
 					<div>
-						<Link to={"/videos/" + video.id}>
+						<a href={"/videos/" + video.id}>
 							<video width="100%">
 								<source src={video.url} type="video/mp4" />
 							</video>
-						</Link>
+						</a>
 					</div>
 					<div>
 						<h4>{video.title}</h4>
-						<h5>{video.uploader?video.uploader.name:null}</h5>
-						<p>{video.relateUploadTime?('Published '+video.relateUploadTime):('Uploaded At '+moment(video.uploadedAt).format("MMM Do YYYY HH:MM:SS"))} </p>
+						<h5>{video.uploader ? video.uploader.name : null}</h5>
+						<p>
+							{video.relateUploadTime
+								? "Published " + video.relateUploadTime
+								: "Uploaded At " +
+								  moment(video.uploadedAt).format(
+										"MMM Do YYYY HH:MM:SS"
+								  )}{" "}
+						</p>
 					</div>
 				</div>
 			);
@@ -26,14 +32,14 @@ export default class VideoCard extends React.Component {
 			return (
 				<div>
 					<div>
-						<Link to={"/videos/" + video.video.id}>
+						<a href={"/videos/" + video.video.id}>
 							<video width="100%">
 								<source
 									src={video.video.url}
 									type="video/mp4"
 								/>
 							</video>
-						</Link>
+						</a>
 					</div>
 					<div>
 						<h4>{video.video.title}</h4>
