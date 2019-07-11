@@ -1,5 +1,6 @@
 import React from "react";
 import { profile } from "../api";
+import { Link } from "react-router-dom";
 import { Card, Avatar, Spin, Button, Descriptions, Modal, Input } from "antd";
 import VideoList from "../component/Video/VideoList";
 import SubscriptionList from "../component/Subscription/SubscriptionList";
@@ -143,7 +144,8 @@ export default class VideoDetail extends React.Component {
 					<Card
 						bordered={false}
 						title="History"
-						className="content-card"
+                        className="content-card"
+                        extra={<Link to={"/history"}>More</Link>}
 					>
 						<VideoList videoData={watchedVideos} />
 					</Card>

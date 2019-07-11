@@ -77,7 +77,8 @@ export default class VideoDetail extends React.Component {
 								<Panel header="Comments">
 									<CommentList
 										content={comments}
-										user={currentUser}
+                                        user={currentUser}
+                                        videoDetail={videoDetail.video}
 									/>
 								</Panel>
 							</Collapse>
