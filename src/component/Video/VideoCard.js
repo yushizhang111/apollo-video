@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 export default class VideoCard extends React.Component {
 	render() {
         const { video } = this.props;
-        console.log(video);
 		if (!video.percentage) {
 			return (
 				<div>

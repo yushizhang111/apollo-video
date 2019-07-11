@@ -1,11 +1,24 @@
 import { ajax } from "../utils";
 import { Base_URL } from "../utils/variables";
 import { getVideoDetails } from "./video";
+import { getUser } from "./user";
 import moment from "moment";
 
 const url = `${Base_URL}/profile`;
 export const getProfile = () => ajax.getData(url);
 export const update = (data) => ajax.updateData(url, data)(JSON.stringify(data));
+export async function getSubscribedUser() {
+    const currentUser = await getProfile();
+    const subscriptions = currentUser.subscriptions
+    let subscribedList = [];
+    for (let i = 0; i < subscriptions.length; i++) {
+		let item = subscriptions[i];
+		let userId = item.userId;
+		let user= await getUser(userId);
+		subscribedList.push(user);
+	}
+	return subscribedList;
+}
 export async function getWatchedVideos(limit) {
 	const currentUser = await getProfile();
 	const watchedVideos = currentUser.watched;
@@ -41,7 +54,6 @@ export async function getWatchedVideoDetails(id,time) {
 	for (let i = 0; i < watchedVideos.length; i++) {
         let video = watchedVideos[i];
         let videoId = video.videoId;
-        console.log(video.lastViewed);
         let relativeTime = moment(video.lastViewed).startOf('day').fromNow()
         if (videoId === parseInt(id) ){
             let watchedVideoDetail = {
@@ -58,7 +70,6 @@ export async function getWatchedVideoDetails(id,time) {
                 times: (video.times+1),
                 lastViewed: Date.now()
             }
-            console.log(currentUser);
             newUser = await update(currentUser);
             break;
         }

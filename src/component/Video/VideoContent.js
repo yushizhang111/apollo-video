@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 export default class VideoContent extends React.Component {
     render() {
         const { content } = this.props;
-        console.log(content);
         const { video } = content;
 		
         return (
@@ -33,7 +32,7 @@ export default class VideoContent extends React.Component {
                             )}
                         </div>
                         
-                        <div className='video-Info__upload' style={{"flex-grow":"8"}}>
+                        <div className='video-Info__upload' style={{"flexGrow":"8"}}>
                             <h3>{video.uploader ? video.uploader.name : "You Know Who"}</h3>
                             <p>Published {video.relateUploadTime}</p>
                         </div>
