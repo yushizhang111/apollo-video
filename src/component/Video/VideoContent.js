@@ -1,6 +1,5 @@
 import React from "react";
-import { Card, Button, Avatar, Divider } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Avatar, Divider } from "antd";
 
 export default class VideoContent extends React.Component {
     render() {

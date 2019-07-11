@@ -1,7 +1,6 @@
 import React from "react";
-import { video, user } from "../api";
-import { profile } from "../api";
-import { Card, Spin, Button, Avatar } from "antd";
+import { user } from "../api";
+import { Card, Spin, Button, Avatar,Icon } from "antd";
 import VideoList from "../component/Video/VideoList";
 
 export default class Subscription extends React.Component {
@@ -38,7 +37,7 @@ export default class Subscription extends React.Component {
         const SubscribeButton = () => {
             return (
                 <div className='video-Info__subscribe' >
-                    <Button type="primary" shape="round" icon="heart" size="large" >Subscribe</Button>
+                    <Button type="primary" shape="round" size="large" ><Icon type="heart" theme="filled" />Subscribe</Button>
                 </div>
             )
         }
