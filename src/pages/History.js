@@ -1,33 +1,42 @@
 import React from "react";
 import { profile } from "../api";
-import { Card } from "antd";
+import { Card, Spin } from "antd";
 import VideoList from "../component/Video/VideoList";
 
 export default class History extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			watchedVideos: []
+            watchedVideos: [],
+            isLoading: true,
 		};
 	}
 
 	componentDidMount() {
 		profile.getWatchedVideos().then(response =>
 			this.setState({
-				watchedVideos: response
+                watchedVideos: response,
+                isLoading: false
 			})
 		);
 	}
 
 	render() {
-		const { watchedVideos } = this.state;
-
-		return (
-			<div>
-				<Card title="History">
-					<VideoList videoData={watchedVideos} />
-				</Card>
-			</div>
-		);
+		const { watchedVideos, isLoading } = this.state;
+        if (isLoading) {
+            return (
+                <div className="spin">
+                    <Spin />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Card title="History">
+                        <VideoList videoData={watchedVideos} />
+                    </Card>
+                </div>
+            );
+        }
 	}
 }
