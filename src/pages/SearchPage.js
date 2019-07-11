@@ -10,6 +10,7 @@ export default class History extends React.Component {
 		this.state = {
             videoOutcomes: [],
             isLoading: true,
+            pageSize:2,
 		};
 	}
 
@@ -28,7 +29,20 @@ export default class History extends React.Component {
 	}
 
 	render() {
-        const { videoOutcomes, isLoading } = this.state;
+        const { videoOutcomes, isLoading, pageSize} = this.state;
+        
+		
+		const paginationProps = {
+			showSizeChanger: true,
+			showQuickJumper: true,
+			pageSizeOptions:['2','3','6','12', '24', '30'],
+			pageSize,
+			onShowSizeChange: (current, pagesize) =>{
+				this.setState({
+					pageSize:pagesize,
+				})
+			}
+		};
         console.log(videoOutcomes)
         if (isLoading) {
             return (
@@ -43,7 +57,7 @@ export default class History extends React.Component {
                         {videoOutcomes.length === 0  ?
                             <p>No videos found with this title</p>
                             :
-                            <VideoList videoData={videoOutcomes} />
+                            <VideoList videoData={videoOutcomes} paginationProps={paginationProps }/>
                         }
                          
                     </Card>

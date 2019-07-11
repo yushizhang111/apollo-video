@@ -1,6 +1,6 @@
 import React from "react";
 import { List , Avatar, Button, Icon} from "antd";
-
+import { profile } from "../../api";
 export default class SideVideoList extends React.Component {
     constructor(props) {
         super(props);
@@ -8,7 +8,10 @@ export default class SideVideoList extends React.Component {
         this.unSubscribe = this.unSubscribe.bind(this);
     }
 
-    unSubscribe() {
+    unSubscribe(event,id) {
+        profile.toggleSubscribe(id).then(
+            response =>console.log(response)
+        )
         this.subscribedUserRef.current.style["display"]="none"
         
     }
@@ -49,7 +52,7 @@ export default class SideVideoList extends React.Component {
                             </div>
                             <h3>{item.name}</h3>
                             <div>
-                                <Button type="primary" shape="circle" size="default" onClick={this.unSubscribe}><Icon type="heart" theme="filled" /></Button>
+                                <Button type="primary" shape="circle" size="default" onClick={event=>this.unSubscribe(event,item.id)}><Icon type="heart" theme="filled" /></Button>
                             </div>
                             
                         </div>

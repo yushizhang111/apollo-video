@@ -3,8 +3,9 @@ import { List } from "antd";
 import VideoCard from "./VideoCard";
 
 export default class VideoList extends React.Component {
-	render() {
-		const { videoData } = this.props;
+    render() {
+        
+		const { videoData, paginationProps } = this.props;
 		return (
 			<List
 				grid={{
@@ -15,7 +16,8 @@ export default class VideoList extends React.Component {
 					lg: 3,
 					xl: 4,
 					xxl: 4
-				}}
+                }}
+                pagination={paginationProps?paginationProps:null}
 				dataSource={videoData}
 				renderItem={item => (
 					<List.Item>
