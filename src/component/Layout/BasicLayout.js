@@ -26,6 +26,7 @@ export default class BasicLayout extends React.Component {
 	render() {
 		const { pageContent, currentUser } = this.props;
 		const { subscriptions } = this.state;
+		console.log(subscriptions)
 		return (
 			<Layout>
 				<Sider
@@ -64,20 +65,23 @@ export default class BasicLayout extends React.Component {
 								{subscriptions.map(item => (
 									<Menu.Item
 										key={item.id}
-										style={{ display: "inline-flex" }}
 									>
-										{item.avatar ? (
-											<div style={{ marginRight: 20 }}>
-												<Avatar
-													src={currentUser.avatar}
-												/>
+										<Link to={"/subscription/" + item.id}>
+											<div style={{"display":"inline-flex"}}>
+												{item.avatar ? (
+													<div style={{ marginRight: 20 }}>
+														<Avatar
+															src={currentUser.avatar}
+														/>
+													</div>
+												) : (
+													<div style={{ marginRight: 20 }}>
+														<Avatar icon="user" />
+													</div>
+												)}
+												{item.name}
 											</div>
-										) : (
-											<div style={{ marginRight: 20 }}>
-												<Avatar icon="user" />
-											</div>
-										)}
-										{item.name}
+										</Link>
 									</Menu.Item>
 								))}
 							</SubMenu>

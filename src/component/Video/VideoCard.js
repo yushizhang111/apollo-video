@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 export default class VideoCard extends React.Component {
 	render() {
@@ -17,8 +18,8 @@ export default class VideoCard extends React.Component {
 					</div>
 					<div>
 						<h4>{video.title}</h4>
-						<h5>{video.uploader.name}</h5>
-						<p>Uploaded {video.relateUploadTime} </p>
+						<h5>{video.uploader?video.uploader.name:null}</h5>
+						<p>{video.relateUploadTime?('Published '+video.relateUploadTime):('Uploaded At '+moment(video.uploadedAt).format("MMM Do YYYY HH:MM:SS"))} </p>
 					</div>
 				</div>
 			);

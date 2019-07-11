@@ -1,7 +1,7 @@
 import React from "react";
 import { video } from "../api";
 import { profile } from "../api";
-import { Card , Row, Col,Collapse} from "antd";
+import { Card , Row, Col,Collapse, Spin} from "antd";
 import SideVideoList from "../component/Video/SideVideoList";
 import VideoContent from "../component/Video/VideoContent";
 import CommentList from "../component/Comment/CommentList";
@@ -12,7 +12,8 @@ export default class VideoDetail extends React.Component {
         videoDetail: '',
         comments: [],
         recommended: [],
-        currentUser:''
+        currentUser: '',
+        isLoading: true,
     }
 
     componentDidMount() {
@@ -44,7 +45,8 @@ export default class VideoDetail extends React.Component {
         video.getVideosList().then(
             response => {
                 this.setState({
-                    recommended: response
+                    recommended: response,
+                    isLoading:false
                 })
             }
         )
@@ -52,29 +54,36 @@ export default class VideoDetail extends React.Component {
 	
 
 	render() {
-        const { videoDetail, comments, recommended, currentUser } = this.state
+        const { videoDetail, comments, recommended, currentUser, isLoading } = this.state
         console.log(recommended)
-
-		return (
-			<div>
-				<Row gutter={24}>
-                    <Col xl={16} lg={16} md={24} sm={24} xs={24} >
-                        <Card>
-                            <VideoContent content={videoDetail} />
-                        </Card>
-                        <Collapse style={{"marginLeft":"20px", "marginRight":"20px"}}>
-                            <Panel header="Comments" >
-                                <CommentList content={comments} user={currentUser} />
-                            </Panel>
-                        </Collapse>
-                    </Col>
-                    <Col xl={8} lg={8} md={24} sm={24} xs={24} >
-                        <Card title="Recommeded">
-                            <SideVideoList videoData={recommended} />
-                        </Card>
-                    </Col>
-                </Row>
-			</div>
-		);
+        if (isLoading) {
+            return (
+                <div className="spin">
+                    <Spin />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Row gutter={24}>
+                        <Col xl={16} lg={16} md={24} sm={24} xs={24} >
+                            <Card>
+                                <VideoContent content={videoDetail} />
+                            </Card>
+                            <Collapse style={{ "marginLeft": "20px", "marginRight": "20px" }}>
+                                <Panel header="Comments" >
+                                    <CommentList content={comments} user={currentUser} />
+                                </Panel>
+                            </Collapse>
+                        </Col>
+                        <Col xl={8} lg={8} md={24} sm={24} xs={24} >
+                            <Card title="Recommeded">
+                                <SideVideoList videoData={recommended} />
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            );
+        }
 	}
 }
