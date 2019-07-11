@@ -1,15 +1,22 @@
 import React from "react";
-import { Layout, Menu, Icon, Avatar } from "antd";
-import '../../style/main.scss';
+import { Layout, Menu, Icon, Avatar, Divider } from "antd";
+import { Link } from "react-router-dom";
+import { profile } from "../../api";
+const { Header, Sider, Content } = Layout;
 
-const { Header, Sider } = Layout;
-
+const { SubMenu } = Menu;
 export default class BasicLayout extends React.Component {
 	state = {
 		collapsed: true,
-		
+		subscriptions: []
 	};
-
+	componentDidMount() {
+		profile.getSubscribedUser().then(response => {
+			this.setState({
+				subscriptions: response
+			});
+		});
+	}
 	toggle = () => {
 		this.setState({
 			collapsed: !this.state.collapsed
@@ -18,7 +25,7 @@ export default class BasicLayout extends React.Component {
 
 	render() {
 		const { pageContent, currentUser } = this.props;
-	
+		const { subscriptions } = this.state;
 		return (
 			<Layout>
 				<Sider
@@ -33,21 +40,58 @@ export default class BasicLayout extends React.Component {
 						defaultSelectedKeys={["1"]}
 					>
 						<Menu.Item key="1">
-							<Icon type="user" />
-							<span>nav 1</span>
+							<Link to="/">
+								<Icon type="home" />
+								<span>Home</span>
+							</Link>
 						</Menu.Item>
 						<Menu.Item key="2">
-							<Icon type="video-camera" />
-							<span>nav 2</span>
+							<Link to="/history">
+								<Icon type="history" />
+								<span>History</span>
+							</Link>
 						</Menu.Item>
-						<Menu.Item key="3">
-							<Icon type="upload" />
-							<span>nav 3</span>
-						</Menu.Item>
+						{subscriptions ? (
+							<SubMenu
+								key="3"
+								title={
+									<span>
+										<Icon type="heart" />
+										<span>Subscription</span>
+									</span>
+								}
+							>
+								{subscriptions.map(item => (
+									<Menu.Item
+										key={item.id}
+										style={{ display: "inline-flex" }}
+									>
+										{item.avatar ? (
+											<div style={{ marginRight: 20 }}>
+												<Avatar
+													src={currentUser.avatar}
+												/>
+											</div>
+										) : (
+											<div style={{ marginRight: 20 }}>
+												<Avatar icon="user" />
+											</div>
+										)}
+										{item.name}
+									</Menu.Item>
+								))}
+							</SubMenu>
+						) : null}
 					</Menu>
 				</Sider>
 				<Layout>
-					<Header style={{ background: "#fff", padding: 0 }}>
+					<Header
+						style={{
+							background: "#fff",
+							padding: 0,
+							display: "inline-flex"
+						}}
+					>
 						<Icon
 							className="trigger"
 							type={
@@ -57,12 +101,20 @@ export default class BasicLayout extends React.Component {
 							}
 							onClick={this.toggle}
 						/>
-						<Avatar>
-
-						</Avatar>
-						<span>{currentUser.name}</span>
+						{currentUser.avatar ? (
+							<div style={{ marginRight: 20 }}>
+								<Avatar src={currentUser.avatar} />
+							</div>
+						) : (
+							<div style={{ marginRight: 20 }}>
+								<Avatar icon="user" />
+							</div>
+						)}
+						<div>{currentUser.name}</div>
 					</Header>
-					{pageContent}
+					<Content style={{ minHeight: "1080px" }}>
+						{pageContent}
+					</Content>
 				</Layout>
 			</Layout>
 		);

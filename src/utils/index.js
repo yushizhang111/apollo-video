@@ -1,3 +1,3 @@
-import * as ajaxFetch from './ajax';
+import * as ajaxFetch from "./ajax";
 
 export const ajax = ajaxFetch;
