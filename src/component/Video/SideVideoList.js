@@ -9,8 +9,8 @@ export default class SideVideoList extends React.Component {
 			<List
 				grid={{
 					gutter: 16,
-					xs: 3,
-					sm: 3,
+					xs: 1,
+					sm: 1,
 					md: 3,
 					lg: 1,
 					xl: 1,

@@ -39,7 +39,7 @@ export default class Home extends React.Component {
 			);
 		} else {
 			return (
-				<div>
+				<div class="home">
 					<Card
 						bordered={false}
 						title="Recommended"

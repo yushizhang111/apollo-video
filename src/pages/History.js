@@ -43,8 +43,8 @@ export default class History extends React.Component {
 			);
 		} else {
 			return (
-				<div>
-					<Card title="History">
+				<div className="history">
+					<Card title="History" className="content-card">
 						<VideoList
 							videoData={watchedVideos}
 							paginationProps={paginationProps}

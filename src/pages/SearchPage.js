@@ -46,8 +46,8 @@ export default class History extends React.Component {
 			);
 		} else {
 			return (
-				<div>
-					<Card title="Results">
+				<div className="search-page">
+					<Card title="Results" className="content-card">
 						{videoOutcomes.length === 0 ? (
 							<p>No videos found with this title</p>
 						) : (

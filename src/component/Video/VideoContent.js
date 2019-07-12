@@ -54,7 +54,6 @@ export default class VideoContent extends React.Component {
 						<iframe
 							src={video.url}
 							width="100%"
-							style={{ height: "300px" }}
 							title={video.title}
 							className="video-content__frame"
 						/>
@@ -63,25 +62,19 @@ export default class VideoContent extends React.Component {
 					<p>Last Viewed {content.lastViewed}</p>
 				</div>
 				<Divider />
-				<div
-					className="video-Info"
-					style={{ display: "inline-flex", width: "100%" }}
-				>
-					<div className="video-Info__avatar">
+				<div className="video-info">
+					<div>
 						{video.uploader.avatar ? (
-							<div style={{ marginRight: 20 }}>
+							<div className="video-info__avatar">
 								<Avatar src={video.uploader.avatar} />
 							</div>
 						) : (
-							<div style={{ marginRight: 20 }}>
+							<div className="video-info__avatar">
 								<Avatar icon="user" />
 							</div>
 						)}
 					</div>
-					<div
-						className="video-Info__upload"
-						style={{ flexGrow: "8" }}
-					>
+					<div className="video-info__upload">
 						<h3>
 							{video.uploader
 								? video.uploader.name
@@ -89,7 +82,7 @@ export default class VideoContent extends React.Component {
 						</h3>
 						<p>Published {video.relateUploadTime}</p>
 					</div>
-					<div className="video-Info__subscribe">
+					<div className="video-info__subscribe">
 						<Button
 							type="primary"
 							shape="round"
@@ -97,6 +90,7 @@ export default class VideoContent extends React.Component {
 							onClick={event =>
 								this.toggleSubscribed(event, video.uploader.id)
 							}
+							className="complete-subscribe-btn"
 						>
 							<Icon
 								type="heart"
@@ -104,13 +98,27 @@ export default class VideoContent extends React.Component {
 							/>
 							{this.state.subscribed ? "Subscribed" : "Subscribe"}
 						</Button>
+						<Button
+							type="primary"
+							shape="circle"
+							size="default"
+							onClick={event =>
+								this.toggleSubscribed(event, video.uploader.id)
+							}
+							className="simple-subscribe-btn"
+						>
+							<Icon
+								type="heart"
+								theme={this.state.filled ? "filled" : ""}
+							/>
+						</Button>
 					</div>
 				</div>
 				<Divider />
-				<div className="video-Description">
+				<div className="video-description">
 					<h3>Details</h3>
 					<Collapse bordered={false}>
-						<Panel header="More" style={{ border: 0 }}>
+						<Panel header="More" class="video-description__panel">
 							<div>
 								<p>{video.description}</p>
 							</div>

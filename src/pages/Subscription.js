@@ -48,7 +48,7 @@ export default class Subscription extends React.Component {
 		const { uploader, subscribedVideo, isLoading } = this.state;
 		const SubscribeButton = () => {
 			return (
-				<div className="video-Info__subscribe">
+				<div className="user-subscribe">
 					<Button
 						type="primary"
 						shape="round"
@@ -56,12 +56,27 @@ export default class Subscription extends React.Component {
 						onClick={event =>
 							this.toggleSubscribed(event, uploader.id)
 						}
+						className="complete-subscribe-btn"
 					>
 						<Icon
 							type="heart"
 							theme={this.state.filled ? "filled" : ""}
 						/>
 						{this.state.subscribed ? "Subscribed" : "Subscribe"}
+					</Button>
+					<Button
+						type="primary"
+						shape="circle"
+						size="default"
+						onClick={event =>
+							this.toggleSubscribed(event, uploader.id)
+						}
+						className="simple-subscribe-btn"
+					>
+						<Icon
+							type="heart"
+							theme={this.state.filled ? "filled" : ""}
+						/>
 					</Button>
 				</div>
 			);
@@ -93,7 +108,7 @@ export default class Subscription extends React.Component {
 			);
 		} else {
 			return (
-				<div>
+				<div className="subscription">
 					<Card
 						bordered={false}
 						title={<Title />}

@@ -63,18 +63,15 @@ export default class VideoDetail extends React.Component {
 			);
 		} else {
 			return (
-				<div>
+				<div className="video-detail">
 					<Row gutter={24}>
 						<Col xl={16} lg={16} md={24} sm={24} xs={24}>
-							<Card>
+							<Card className="content-card">
 								<VideoContent content={videoDetail} />
 							</Card>
 							<Collapse
-								style={{
-									marginLeft: "20px",
-									marginRight: "20px"
-								}}
 								bordered={false}
+								className="content-card collapse-commemts"
 							>
 								<Panel header="Comments">
 									<CommentList
@@ -87,6 +84,7 @@ export default class VideoDetail extends React.Component {
 						</Col>
 						<Col xl={8} lg={8} md={24} sm={24} xs={24}>
 							<Card
+								className="content-card"
 								title="Recommeded"
 								extra={<Link to={"/video?title="}>More</Link>}
 							>
