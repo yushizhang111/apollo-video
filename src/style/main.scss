@@ -1,11 +1,13 @@
 @import "./mixin.scss";
+@import "./variables.scss";
+
 html,
 body,
 main {
 	a {
-		color: #fa8c16;
+		color: $themeOrange;
 		&:link {
-			color: #fa8c16;
+			color: $themeOrange;
 		}
 	}
 }
@@ -28,7 +30,7 @@ main {
 	.logo {
 		text-align: center;
 		h1 {
-			color: #5b8c00;
+			color: $titleGreen;
 		}
 	}
 }
@@ -46,7 +48,7 @@ main {
 		cursor: pointer;
 		transition: color 0.3s;
 		&:hover {
-			color: #1890ff;
+			color: $themeGreen;
 		}
 	}
 	.header-profile {
@@ -62,7 +64,7 @@ main {
 			width: 300px;
 		}
 		button {
-			background-color: #bae637;
+			background-color: $themeGreen;
 			border: 0px;
 		}
 	}
@@ -86,35 +88,35 @@ main {
 			margin: 10px;
 			.ant-list-pagination {
 				.ant-pagination-item-active {
-					border-color: #fa8c16;
+					border-color: $themeOrange;
 					a {
-						color: #fa8c16;
+						color: $themeOrange;
 					}
 				}
 			}
 			.ant-card-head-title {
-				color: #5b8c00;
+				color: $titleGreen;
 			}
 			.user-subscribe {
 				.complete-subscribe-btn {
 					display: block;
-					background-color: #bae637;
+					background-color: $themeGreen;
 					border: 0px;
 				}
 				.simple-subscribe-btn {
 					display: none;
-					background-color: #bae637;
+					background-color: $themeGreen;
 					border: 0px;
 				}
 				@include MQ(S) {
 					.complete-subscribe-btn {
 						display: none;
-						background-color: #bae637;
+						background-color: $themeGreen;
 						border: 0px;
 					}
 					.simple-subscribe-btn {
 						display: block;
-						background-color: #bae637;
+						background-color: $themeGreen;
 						border: 0px;
 					}
 				}
@@ -125,18 +127,18 @@ main {
 		.content-card {
 			margin: 10px;
 			.ant-card-head-title {
-				color: #5b8c00;
+				color: $titleGreen;
 			}
 			.ant-list-pagination {
 				.ant-pagination-item-active {
-					border-color: #fa8c16;
+					border-color: $themeOrange;
 					a {
-						color: #fa8c16;
+						color: $themeOrange;
 					}
 				}
 			}
 			.comment-submit-btn {
-				background-color: #bae637;
+				background-color: $themeGreen;
 				border: 0px;
 			}
 			.ant-card-body {
@@ -190,23 +192,23 @@ main {
 					&__subscribe {
 						.complete-subscribe-btn {
 							display: block;
-							background-color: #bae637;
+							background-color: $themeGreen;
 							border: 0px;
 						}
 						.simple-subscribe-btn {
 							display: none;
-							background-color: #bae637;
+							background-color: $themeGreen;
 							border: 0px;
 						}
 						@include MQ(S) {
 							.complete-subscribe-btn {
 								display: none;
-								background-color: #bae637;
+								background-color: $themeGreen;
 								border: 0px;
 							}
 							.simple-subscribe-btn {
 								display: block;
-								background-color: #bae637;
+								background-color: $themeGreen;
 								border: 0px;
 							}
 						}
