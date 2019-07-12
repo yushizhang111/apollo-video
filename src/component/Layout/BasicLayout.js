@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { profile } from "../../api";
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 const { Search } = Input;
 const history = createBrowserHistory();
@@ -54,10 +54,14 @@ export default class BasicLayout extends React.Component {
 					trigger={null}
 					collapsible
 					collapsed={this.state.collapsed}
-					style={{ paddingTop: "10px" }}
 					theme="light"
+					className="sider"
 				>
-					
+					<div className="logo">
+						<h1>
+							<strong>Apollo</strong>
+						</h1>
+					</div>
 					<Menu theme="light" mode="inline">
 						<Menu.Item key="1">
 							<Link to="/">
@@ -80,21 +84,20 @@ export default class BasicLayout extends React.Component {
 										<span>Subscription</span>
 									</span>
 								}
+								className="sider-submenu"
 							>
 								{subscriptions.map(item => (
 									<Menu.Item key={item.id}>
 										<Link to={"/subscription/" + item.id}>
 											<div
+												className="subscription-submenu"
 												style={{
-													display: "inline-flex"
+													display: "inline-flex",
+													color: "deeppink"
 												}}
 											>
 												{item.avatar ? (
-													<div
-														style={{
-															marginRight: 20
-														}}
-													>
+													<div className="user-avatar">
 														<Avatar
 															src={
 																currentUser.avatar
@@ -103,6 +106,7 @@ export default class BasicLayout extends React.Component {
 													</div>
 												) : (
 													<div
+														className="user-avatar"
 														style={{
 															marginRight: 20
 														}}
@@ -122,13 +126,7 @@ export default class BasicLayout extends React.Component {
 					</Menu>
 				</Sider>
 				<Layout>
-					<Header
-						style={{
-							background: "#fff",
-							padding: 0,
-							display: "inline-flex"
-						}}
-					>
+					<Header className="header">
 						<Icon
 							className="trigger"
 							type={
@@ -139,17 +137,13 @@ export default class BasicLayout extends React.Component {
 							onClick={this.toggle}
 						/>
 						<Link to={"/profile"}>
-							<div
-								style={{
-									display: "inline-flex"
-								}}
-							>
+							<div className="header-profile">
 								{currentUser.avatar ? (
-									<div style={{ marginRight: 20 }}>
+									<div className="user-avatar">
 										<Avatar src={currentUser.avatar} />
 									</div>
 								) : (
-									<div style={{ marginRight: 20 }}>
+									<div className="user-avatar">
 										<Avatar icon="user" />
 									</div>
 								)}
@@ -157,16 +151,22 @@ export default class BasicLayout extends React.Component {
 							</div>
 						</Link>
 						<Search
+							className="header-search"
 							placeholder="Exp: Whales"
 							enterButton="Search"
 							size="default"
 							onSearch={value => this.onSearchVideo(value)}
-							style={{ width: "50%", margin: "auto" }}
 						/>
 					</Header>
-					<Content style={{ minHeight: "1080px" }}>
+					<Content
+						className="page-content"
+						style={{ minHeight: "1080px" }}
+					>
 						{pageContent}
 					</Content>
+					<Footer className="footer">
+						Apollo Video Test©2019 Created by Yushi Zhang
+					</Footer>
 				</Layout>
 			</Layout>
 		);

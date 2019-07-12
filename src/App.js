@@ -22,7 +22,6 @@ export default class App extends React.Component {
 			<BasicLayout
 				pageContent={<Routes />}
 				currentUser={this.state.user}
-				id="components-layout-demo-custom-trigger"
 			/>
 		);
 	}

@@ -102,7 +102,7 @@ export default class VideoDetail extends React.Component {
 			);
 		} else {
 			return (
-				<div>
+				<div className="profile">
 					<Card
 						bordered={false}
 						title="Your Profile"

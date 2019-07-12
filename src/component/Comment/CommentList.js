@@ -64,6 +64,7 @@ export default class CommentList extends React.Component {
 								loading={submitting}
 								onClick={this.onSubmit}
 								type="primary"
+								className="comment-submit-btn"
 							>
 								Add Comment
 							</Button>
